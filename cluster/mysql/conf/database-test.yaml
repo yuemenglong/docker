@@ -1,0 +1,42 @@
+databaseName: test
+
+dataSources:
+  test_m:
+    url: jdbc:mysql://172.28.41.59:3008/test?useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+    connectionTimeoutMilliseconds: 30000
+    idleTimeoutMilliseconds: 60000
+    maxLifetimeMilliseconds: 1800000
+    maxPoolSize: 50
+
+  test_s:
+    url: jdbc:mysql://172.28.41.59:3009/test?useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+    connectionTimeoutMilliseconds: 30000
+    idleTimeoutMilliseconds: 60000
+    maxLifetimeMilliseconds: 1800000
+    maxPoolSize: 50
+
+rules:
+  # 分片规则
+  - !SHARDING
+    tables:
+      test:
+        actualDataNodes: test.test
+
+  # 读写分离规则
+  - !READWRITE_SPLITTING
+    dataSources:
+      test:
+        writeDataSourceName: test_m
+        readDataSourceNames:
+          - test_m
+          - test_s
+        loadBalancerName: random
+    loadBalancers:
+      random:
+        type: RANDOM
+
+

@@ -1,0 +1,30 @@
+CREATE USER 'slave'@'%' IDENTIFIED BY 'slave';
+GRANT REPLICATION SLAVE ON *.* TO 'slave'@'%';
+FLUSH PRIVILEGES;
+
+ALTER USER 'slave'@'%' IDENTIFIED WITH mysql_native_password BY 'slave';
+FLUSH PRIVILEGES;
+
+SHOW MASTER STATUS;
+
+
+
+
+CHANGE MASTER TO
+    MASTER_HOST='172.28.41.59',
+    MASTER_USER='slave',
+    MASTER_PASSWORD='slave',
+    MASTER_LOG_FILE='mysql-bin.000003',
+    MASTER_LOG_POS=1309,
+    MASTER_PORT=3008
+    FOR CHANNEL 'test_channel';
+
+
+START SLAVE FOR CHANNEL 'test_channel';
+
+SHOW SLAVE STATUS FOR CHANNEL 'test_channel'\G
+
+
+
+STOP SLAVE FOR CHANNEL 'test_channel';
+RESET SLAVE ALL FOR CHANNEL 'test_channel';

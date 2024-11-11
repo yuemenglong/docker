@@ -1,0 +1,117 @@
+version: '3'
+services:
+  mysql0:
+    image: mysql:8.0.33
+    container_name: mysql0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3000:3306"
+    volumes:
+      - /tmp:/tmp
+
+  mysql1:
+    image: mysql:8.0.33
+    container_name: mysql1
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3001:3306"
+    volumes:
+      - /tmp:/tmp
+
+  mysql2:
+    image: mysql:8.0.33
+    container_name: mysql2
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3002:3306"
+    volumes:
+      - /tmp:/tmp
+
+  mysql3:
+    image: mysql:8.0.33
+    container_name: mysql3
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3003:3306"
+    volumes:
+      - /tmp:/tmp
+
+  mysql4:
+    image: mysql:8.0.33
+    container_name: mysql4
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3004:3306"
+    volumes:
+      - /tmp:/tmp
+
+  mysql5:
+    image: mysql:8.0.33
+    container_name: mysql5
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3005:3306"
+    volumes:
+      - /tmp:/tmp
+
+  mysql6:
+    image: mysql:8.0.33
+    container_name: mysql6
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3006:3306"
+    volumes:
+      - /tmp:/tmp
+
+  mysql7:
+    image: mysql:8.0.33
+    container_name: mysql7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3007:3306"
+    volumes:
+      - /tmp:/tmp
+
+  mysql8:
+    image: mysql:8.0.33
+    container_name: mysql8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3008:3306"
+    volumes:
+      - /tmp:/tmp
+      - /tmp/master.cnf:/etc/my.cnf:ro
+
+  mysql9:
+    image: mysql:8.0.33
+    container_name: mysql9
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3009:3306"
+    volumes:
+      - /tmp:/tmp
+      - /tmp/slave.cnf:/etc/my.cnf:ro
+
+
+  shardingsphere:
+    image: apache/shardingsphere-proxy:5.5.0
+    container_name: shardingsphere
+    ports:
+      - "13308:3308"
+    volumes:
+      - /tmp:/tmp
+      - ./conf:/opt/shardingsphere-proxy/conf
+      - ./ext-lib:/opt/shardingsphere-proxy/ext-lib
+
+    
+    
