@@ -1,0 +1,71 @@
+主从配置.txt
+
+0. 同步binglog
+修改my.cnf/my.ini
+[mysqld]
+server-id=1
+log-bin="mysql-bin"
+binlog-format=ROW
+
+[mysql]
+default-character-set=utf8mb4
+
+[mysqld]
+character-set-server=utf8mb4
+
+1. 主库上创建同步用户
+CREATE USER 'slave'@'%' IDENTIFIED BY 'slave';
+GRANT REPLICATION SLAVE ON *.* TO 'slave'@'%';
+FLUSH PRIVILEGES;
+
+ALTER USER 'slave'@'%' IDENTIFIED WITH mysql_native_password BY 'slave';
+FLUSH PRIVILEGES;
+
+1.1 如果要删除用户
+DROP USER 'slave'@'%';
+
+2. 查看主库状态
+SHOW MASTER STATUS;
+
+mysql> SHOW MASTER STATUS;
++----------------------------+-----------+--------------+------------------+-------------------+
+| File                       | Position  | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |
++----------------------------+-----------+--------------+------------------+-------------------+
+| LAPTOP-UT4L3S7K-bin.000256 | 103729408 |              |                  |                   |
++----------------------------+-----------+--------------+------------------+-------------------+
+1 row in set (0.00 sec)
+
+3. 从库上配置
+CHANGE MASTER TO
+    MASTER_HOST='172.28.32.1',
+    MASTER_USER='slave',
+    MASTER_PASSWORD='slave',
+    MASTER_LOG_FILE='LAPTOP-UT4L3S7K-bin.000256',
+    MASTER_LOG_POS=103729408,
+    MASTER_PORT=3306
+    FOR CHANNEL 'im0_channel';
+
+START SLAVE FOR CHANNEL 'im0_channel';
+
+SHOW SLAVE STATUS FOR CHANNEL 'im0_channel'\G
+
+CHANGE MASTER TO
+    MASTER_HOST='172.28.32.1',
+    MASTER_USER='slave',
+    MASTER_PASSWORD='slave',
+    MASTER_LOG_FILE='LAPTOP-UT4L3S7K-bin.000256',
+    MASTER_LOG_POS=103729408,
+    MASTER_PORT=3306
+    FOR CHANNEL 'im1_channel';
+
+START SLAVE FOR CHANNEL 'im1_channel';
+
+SHOW SLAVE STATUS FOR CHANNEL 'im1_channel'\G
+
+3.1 如果要结束slave
+STOP SLAVE FOR CHANNEL 'im0_channel';
+RESET SLAVE ALL FOR CHANNEL 'im0_channel';
+STOP SLAVE FOR CHANNEL 'im1_channel';
+RESET SLAVE ALL FOR CHANNEL 'im1_channel';
+
+

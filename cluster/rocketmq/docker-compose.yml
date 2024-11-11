@@ -7,27 +7,70 @@ services:
       - "9876:9876" 
     restart: unless-stopped
 
-  mqbroker:
+  mqbroker_a_m:
     image: apache/rocketmq:5.3.1
-    container_name: mqbroker
-    command: sh mqbroker -n mqnamesrv:9876
+    container_name: mqbroker_a_m
+    command: sh mqbroker -n 172.28.41.59:9876
     depends_on:
       - mqnamesrv
     ports:
       - "10911:10911"
       - "10909:10909"
     volumes:
-      - ./runbroker.sh:/home/rocketmq/rocketmq-5.1.4/bin/runbroker.sh
+      - ./runbroker.sh:/home/rocketmq/rocketmq-5.3.1/bin/runbroker.sh
+      - ./a_m.conf:/home/rocketmq/rocketmq-5.3.1/conf/broker.conf
     restart: unless-stopped
+
+  mqbroker_a_s:
+    image: apache/rocketmq:5.3.1
+    container_name: mqbroker_a_s
+    command: sh mqbroker -n 172.28.41.59:9876
+    depends_on:
+      - mqnamesrv
+    ports:
+      - "11911:10911"
+      - "11909:10909"
+    volumes:
+      - ./runbroker.sh:/home/rocketmq/rocketmq-5.3.1/bin/runbroker.sh
+      - ./a_s.conf:/home/rocketmq/rocketmq-5.3.1/conf/broker.conf
+    restart: unless-stopped
+
+  mqbroker_b_m:
+    image: apache/rocketmq:5.3.1
+    container_name: mqbroker_b_m
+    command: sh mqbroker -n 172.28.41.59:9876
+    depends_on:
+      - mqnamesrv
+    ports:
+      - "12911:10911"
+      - "12909:10909"
+    volumes:
+      - ./runbroker.sh:/home/rocketmq/rocketmq-5.3.1/bin/runbroker.sh
+      - ./b_m.conf:/home/rocketmq/rocketmq-5.3.1/conf/broker.conf
+    restart: unless-stopped
+
+  mqbroker_b_s:
+    image: apache/rocketmq:5.3.1
+    container_name: mqbroker_b_s
+    command: sh mqbroker -n 172.28.41.59:9876
+    depends_on:
+      - mqnamesrv
+    ports:
+      - "13911:10911"
+      - "13909:10909"
+    volumes:
+      - ./runbroker.sh:/home/rocketmq/rocketmq-5.3.1/bin/runbroker.sh
+      - ./b_s.conf:/home/rocketmq/rocketmq-5.3.1/conf/broker.conf
+    restart: unless-stopped
+
 
   mqdashboard:
     image: apacherocketmq/rocketmq-dashboard:1.0.0
     container_name: mqdashboard
     environment:
-      JAVA_OPTS: "-Drocketmq.namesrv.addr=mqnamesrv:9876"
+      JAVA_OPTS: "-Drocketmq.namesrv.addr=172.28.41.59:9876"
     ports:
       - "8080:8080"
     restart: unless-stopped
     depends_on:
       - mqnamesrv
-      - mqbroker
