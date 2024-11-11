@@ -2,67 +2,40 @@ services:
   mqnamesrv:
     image: apache/rocketmq:5.3.1
     container_name: mqnamesrv
-    command: sh mqnamesrv
+    command: sh mqnamesrv -c /home/rocketmq/rocketmq-5.3.1/conf/broker.conf
     ports:
       - "9876:9876" 
     restart: unless-stopped
+    volumes:
+      - ./namesvr.conf:/home/rocketmq/rocketmq-5.3.1/conf/broker.conf
 
-  mqbroker_a_m:
+  mqbroker_a_1:
     image: apache/rocketmq:5.3.1
-    container_name: mqbroker_a_m
-    command: sh mqbroker -n 172.28.41.59:9876
+    container_name: mqbroker_a_1
+    command: sh mqbroker -c /home/rocketmq/rocketmq-5.3.1/conf/broker.conf
     depends_on:
       - mqnamesrv
     ports:
-      - "10911:10911"
-      - "10909:10909"
+      - "30911:10911"
+      - "30909:10909"
     volumes:
       - ./runbroker.sh:/home/rocketmq/rocketmq-5.3.1/bin/runbroker.sh
-      - ./a_m.conf:/home/rocketmq/rocketmq-5.3.1/conf/broker.conf
+      - ./a_1.conf:/home/rocketmq/rocketmq-5.3.1/conf/broker.conf
     restart: unless-stopped
 
-  mqbroker_a_s:
+  mqbroker_a_2:
     image: apache/rocketmq:5.3.1
-    container_name: mqbroker_a_s
-    command: sh mqbroker -n 172.28.41.59:9876
+    container_name: mqbroker_a_2
+    command: sh mqbroker -c /home/rocketmq/rocketmq-5.3.1/conf/broker.conf
     depends_on:
       - mqnamesrv
     ports:
-      - "11911:10911"
-      - "11909:10909"
+      - "30921:10911"
+      - "30919:10909"
     volumes:
       - ./runbroker.sh:/home/rocketmq/rocketmq-5.3.1/bin/runbroker.sh
-      - ./a_s.conf:/home/rocketmq/rocketmq-5.3.1/conf/broker.conf
+      - ./a_2.conf:/home/rocketmq/rocketmq-5.3.1/conf/broker.conf
     restart: unless-stopped
-
-  mqbroker_b_m:
-    image: apache/rocketmq:5.3.1
-    container_name: mqbroker_b_m
-    command: sh mqbroker -n 172.28.41.59:9876
-    depends_on:
-      - mqnamesrv
-    ports:
-      - "12911:10911"
-      - "12909:10909"
-    volumes:
-      - ./runbroker.sh:/home/rocketmq/rocketmq-5.3.1/bin/runbroker.sh
-      - ./b_m.conf:/home/rocketmq/rocketmq-5.3.1/conf/broker.conf
-    restart: unless-stopped
-
-  mqbroker_b_s:
-    image: apache/rocketmq:5.3.1
-    container_name: mqbroker_b_s
-    command: sh mqbroker -n 172.28.41.59:9876
-    depends_on:
-      - mqnamesrv
-    ports:
-      - "13911:10911"
-      - "13909:10909"
-    volumes:
-      - ./runbroker.sh:/home/rocketmq/rocketmq-5.3.1/bin/runbroker.sh
-      - ./b_s.conf:/home/rocketmq/rocketmq-5.3.1/conf/broker.conf
-    restart: unless-stopped
-
 
   mqdashboard:
     image: apacherocketmq/rocketmq-dashboard:1.0.0
