@@ -1,6 +1,6 @@
 # DEBIAN_FRONTEND=noninteractive apt-get install -yq nodejs xvfb x11vnc novnc x11-apps
 # DISPLAY=:0.0 xcalc
-# http://容器ip:8080/vnc.html
+# http://容器ip:11111/vnc.html
 
 mkdir -p /app/xvfb
 
@@ -25,7 +25,7 @@ nohup x11vnc \
 sleep 1s
 
 nohup websockify \
-    --web /usr/share/novnc 8080 localhost:5900 \
+    --web /usr/share/novnc 11111 localhost:5900 \
     < /dev/null \
     > /app/xvfb/websockify1.log 2>&1 &
 
