@@ -22,7 +22,8 @@ export PATH="$PATH:/app/flutter/bin"
 
 flutter doctor
 
-apt-get install -y curl unzip xz-utils zip libglu1-mesa pulseaudio 
+apt-get install -yq nodejs xvfb x11vnc novnc x11-apps 
+apt-get install -y curl unzip xz-utils zip libglu1-mesa pulseaudio vim
 apt-get install -y build-essential g++ clang cmake ninja-build pkg-config libgtk-3-dev
 
 
@@ -40,5 +41,10 @@ export DISPLAY=:0.0
 pulseaudio --start --log-target=syslog
 build/linux/x64/release/bundle/example
 
+
+
+
+
+apt-get install libmpv-dev
 
 
