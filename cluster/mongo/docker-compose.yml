@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  mongo1:
+    image: mongo:5.0.26
+    container_name: mongo1
+    environment:
+      MONGO_INITDB_HOST: 172.28.41.59
+    ports:
+      - "27017:27017"
+    command: mongod --dbpath /data/db --replSet mgs
+
+  mongo2:
+    image: mongo:5.0.26
+    container_name: mongo2
+    environment:
+      MONGO_INITDB_HOST: 172.28.41.59
+    ports:
+      - "27018:27017"
+    command: mongod --dbpath /data/db --replSet mgs
+
+
+  mongo3:
+    image: mongo:5.0.26
+    container_name: mongo3
+    environment:
+      MONGO_INITDB_HOST: 172.28.41.59
+    ports:
+      - "27019:27017"
+    command: mongod --dbpath /data/db --replSet mgs

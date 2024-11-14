@@ -1,12 +1,13 @@
 services:
-  # mqnamesrv:
-  #   image: apache/rocketmq:5.3.1
-  #   container_name: mqnamesrv
-  #   command: sh mqnamesrv -c /home/rocketmq/rocketmq-5.3.1/conf/broker.conf
-  #   ports:
-  #     - "9876:9876" 
-  #   volumes:
-  #     - ./namesvr.conf:/home/rocketmq/rocketmq-5.3.1/conf/broker.conf
+  mqnamesrv:
+    image: apache/rocketmq:5.3.1
+    container_name: mqnamesrv
+    command: sh mqnamesrv -c /home/rocketmq/rocketmq-5.3.1/conf/broker.conf
+    ports:
+      - "9876:9876" 
+      - "9878:9878" 
+    volumes:
+      - ./namesvr.conf:/home/rocketmq/rocketmq-5.3.1/conf/broker.conf
 
   # mqbroker:
   #   image: apache/rocketmq:5.3.1
@@ -111,8 +112,7 @@ services:
     image: apacherocketmq/rocketmq-dashboard:1.0.0
     container_name: mqdashboard
     environment:
-      # JAVA_OPTS: "-Drocketmq.namesrv.addr=172.28.41.59:9876"
-      JAVA_OPTS: "-Drocketmq.namesrv.addr=172.28.32.1:9876"
+      JAVA_OPTS: "-Drocketmq.namesrv.addr=172.28.41.59:9876"
     ports:
       - "8080:8080"
     # depends_on:
