@@ -1,0 +1,5 @@
+https://blog.csdn.net/m0_52726547/article/details/131202944
+
+nmake /f Makefile.msc sqlite3.c
+
+nmake /f Makefile.msc
