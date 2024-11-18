@@ -1,0 +1,46 @@
+version: '3.7'
+
+services:
+  minio1:
+    image: minio/minio:latest
+    container_name: minio1
+    network_mode: host
+    volumes:
+      - ./data/minio1:/data
+    environment:
+      MINIO_ROOT_USER: "minioadmin"
+      MINIO_ROOT_PASSWORD: "minioadmin123"
+    command: server http://172.28.41.59:9010/data http://172.28.41.59:9020/data http://172.28.41.59:9030/data http://172.28.41.59:9040/data --address ":9010" --console-address ":9011"
+
+  minio2:
+    image: minio/minio:latest
+    container_name: minio2
+    network_mode: host
+    volumes:
+      - ./data/minio2:/data
+    environment:
+      MINIO_ROOT_USER: "minioadmin"
+      MINIO_ROOT_PASSWORD: "minioadmin123"
+    command: server http://172.28.41.59:9010/data http://172.28.41.59:9020/data http://172.28.41.59:9030/data http://172.28.41.59:9040/data --address ":9020" --console-address ":9021"
+
+  minio3:
+    image: minio/minio:latest
+    container_name: minio3
+    network_mode: host
+    volumes:
+      - ./data/minio3:/data
+    environment:
+      MINIO_ROOT_USER: "minioadmin"
+      MINIO_ROOT_PASSWORD: "minioadmin123"
+    command: server http://172.28.41.59:9010/data http://172.28.41.59:9020/data http://172.28.41.59:9030/data http://172.28.41.59:9040/data --address ":9030" --console-address ":9031"
+
+  minio4:
+    image: minio/minio:latest
+    container_name: minio4
+    network_mode: host
+    volumes:
+      - ./data/minio4:/data
+    environment:
+      MINIO_ROOT_USER: "minioadmin"
+      MINIO_ROOT_PASSWORD: "minioadmin123"
+    command: server http://172.28.41.59:9010/data http://172.28.41.59:9020/data http://172.28.41.59:9030/data http://172.28.41.59:9040/data --address ":9040" --console-address ":9041"
