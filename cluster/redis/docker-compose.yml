@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  redis_7001:
+    image: redis:7.4.1
+    container_name: redis_7001
+    volumes:
+      - ./conf:/conf
+    ports:
+      - "7001:7001"
+      - "17001:17001"
+    command:
+      redis-server /conf/7001.conf
+
+  redis_7002:
+    image: redis:7.4.1
+    container_name: redis_7002
+    volumes:
+      - ./conf:/conf
+    ports:
+      - "7002:7002"
+      - "17002:17002"
+    command:
+      redis-server /conf/7002.conf
+
+  redis_7003:
+    image: redis:7.4.1
+    container_name: redis_7003
+    volumes:
+      - ./conf:/conf
+    ports:
+      - "7003:7003"
+      - "17003:17003"
+    command:
+      redis-server /conf/7003.conf
+
+  redis_7004:
+    image: redis:7.4.1
+    container_name: redis_7004
+    volumes:
+      - ./conf:/conf
+    ports:
+      - "7004:7004"
+      - "17004:17004"
+    command:
+      redis-server /conf/7004.conf
+
+  redis_7005:
+    image: redis:7.4.1
+    container_name: redis_7005
+    volumes:
+      - ./conf:/conf
+    ports:
+      - "7005:7005"
+      - "17005:17005"
+    command:
+      redis-server /conf/7005.conf
+      
+  redis_7006:
+    image: redis:7.4.1
+    container_name: redis_7006
+    volumes:
+      - ./conf:/conf
+    ports:
+      - "7006:7006"
+      - "17006:17006"
+    command:
+      redis-server /conf/7006.conf
