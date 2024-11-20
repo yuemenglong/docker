@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  nginx1:
+    image: nginx:latest
+    container_name: nginx1
+    volumes:
+      - ./nginx1.conf:/etc/nginx/nginx.conf
+    ports:
+      - "8088:80"
+
+  nginx2:
+    image: nginx:latest
+    container_name: nginx2
+    volumes:
+      - ./nginx2.conf:/etc/nginx/nginx.conf
+    ports:
+      - "8089:80"
+
+  # keepalived:
+  #   image: osixia/keepalived:2.0.20
+  #   container_name: keepalived
+  #   volumes:
+  #     - ./keepalived.conf:/etc/keepalived/keepalived.conf
+  #   ports:
+  #     - "8090:8090"
+  #   cap_add:
+  #     - NET_ADMIN
+
