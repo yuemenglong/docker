@@ -41,4 +41,16 @@ set(BORINGSSL_LIB_ssl "../../boringssl/build/Release/ssl.lib")
 set(BORINGSSL_LIB_crypto "../../boringssl/build/Release/crypto.lib")
 
 
+cmake -DCMAKE_GENERATOR_PLATFORM=x64 ^
+-DCMAKE_C_FLAGS="/utf-8" -DCMAKE_CXX_FLAGS="/utf-8" ^
+-DLSQUIC_BIN=OFF -DLSQUIC_TESTS=OFF ^
+-DBUILD_SHARED_LIBS=OFF ^
+-DBORINGSSL_INCLUDE="D:/workspace/hitravel/hitravel-im-quic/boringssl/include" ^
+-DZLIB_INCLUDE_DIR="D:/workspace/hitravel/hitravel-im-quic/zlib" ^
+-DVCPKG_TARGET_TRIPLET=x64-windows-static ^
+-DCMAKE_TOOLCHAIN_FILE="D:/env/vcpkg/scripts/buildsystems/vcpkg.cmake" ^
+-DCMAKE_BUILD_TYPE=Release ^
+..
 
+
+msbuild ALL_BUILD.vcxproj /p:Configuration=Release
