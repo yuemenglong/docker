@@ -9,6 +9,9 @@ set HERMETIC_PYTHON_VERSION=3.12
 # set BAZEL_SH=D:\env\msys2\usr\bin
 
 
+# 注意，需要opencv 3.10
+
+
 set http_proxy=http://127.0.0.1:10809
 set https_proxy=http://127.0.0.1:10809
 
@@ -27,6 +30,9 @@ set https_proxy=http://127.0.0.1:10809
 
 bazel build -c opt --define MEDIAPIPE_DISABLE_GPU=1 --action_env PYTHON_BIN_PATH="C:/Users/yml/AppData/Local/Programs/Python/Python312/python.exe" mediapipe/examples/desktop/hello_world
 
+bazel build -c opt --define MEDIAPIPE_DISABLE_GPU=1 --action_env PYTHON_BIN_PATH="C:/Users/yml/AppData/Local/Programs/Python/Python312/python.exe" mediapipe/examples/desktop/selfie_segmentation:selfie_segmentation_cpu
+
+bazel build -c opt --define MEDIAPIPE_DISABLE_GPU=1 --verbose_failures --action_env PYTHON_BIN_PATH="C:/Users/yml/AppData/Local/Programs/Python/Python312/python.exe" mediapipe/examples/desktop/selfie_segmentation:selfie_segmentation_cpu
 
 C:/Users/yml/_bazel_yml/7mgquxo7/execroot/mediapipe/bazel-out/x64_windows-opt/bin/mediapipe/examples/desktop/hello_world/hello_world.exe
 
